@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>BiteSpeed — Luxury Food Delivery</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <meta name="description"
+    content="BiteSpeed — Luxury food delivery from handpicked restaurants. 30-minute delivery guarantee across India." />
+  <meta property="og:title" content="BiteSpeed — Luxury Food Delivery" />
+  <meta property="og:description" content="Fresh, hot restaurant meals delivered in 30 minutes." />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body>
+  <!-- PROMO BANNER -->
+  <div class="promo-banner" id="promo-banner">
+    <span class="promo-pulse"></span>
+    🎉 <strong>LAUNCH OFFER</strong> — Get <strong>₹100 OFF</strong> your first order! Use code <span
+      class="promo-code">BITE100</span>
+    <button class="promo-close"
+      onclick="this.parentElement.style.display='none'; document.body.classList.add('no-banner')"
+      aria-label="Close promo">✕</button>
+  </div>
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+  <div class="noise"></div>
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="lring"></div>
+    <p class="ltxt">BiteSpeed</p>
+  </div>
+
+  <!-- CART OVERLAY + DRAWER -->
+  <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+  <aside class="cart-drawer" id="cart-drawer">
+    <div class="cart-head">
+      <h3>🛒 Your Order</h3>
+      <button class="ccls" onclick="toggleCart()">✕</button>
+    </div>
+    <div class="cart-items" id="cart-items">
+      <div class="empty-cart">
+        <span>🛒</span>
+        <p>Your cart is empty</p>
+      </div>
+    </div>
+    <div class="cart-foot" id="cart-foot" style="display: none">
+      <div class="ctotal"><span>Total</span><span id="ctotal">₹0</span></div>
+      <button class="btn-checkout" onclick="checkout()">Place Order →</button>
+    </div>
+  </aside>
+
+  <!-- HEADER -->
+  <header id="hdr">
+    <a href="#home" class="logo">
+      <div class="logo-dot"></div>
+      BiteSpeed
+    </a>
+    <nav>
+      <a href="#home" class="nav-link">Home</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#restaurants" class="nav-link">Restaurants</a>
+      <a href="#menu" class="nav-link">Menu</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </nav>
+    <div class="hactions">
+      <button class="cart-btn" onclick="toggleCart()">
+        Cart <span class="cbadge" id="cbadge">0</span>
+      </button>
+      <button class="hamburger" id="hbg" onclick="toggleMnav()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  <div class="mnav" id="mnav">
+    <a href="#home" onclick="closeMnav()">Home</a>
+    <a href="#about" onclick="closeMnav()">About</a>
+    <a href="#restaurants" onclick="closeMnav()">Restaurants</a>
+    <a href="#menu" onclick="closeMnav()">Menu</a>
+    <a href="#contact" onclick="closeMnav()">Contact</a>
+  </div>
+
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <div class="hero-bg"></div>
+    <canvas class="hero-particles" id="particles"></canvas>
+    <div class="hero-content">
+      <div class="hbadge">
+        <div class="hbadge-dot"></div>
+        ⚡ 30-Minute Delivery Guarantee
+      </div>
+      <h1 class="hero-title">
+        <em>Extraordinary</em><br />
+        <strong>Food Delivered</strong><br />
+        to Your Door
+      </h1>
+      <p class="hero-sub">
+        From handpicked local restaurants to your doorstep — fresh, hot, and
+        delivered in minutes. Experience dining reimagined.
+      </p>
+      <div class="hero-cta">
+        <a href="#menu" class="btn-primary">Explore Menu ↓</a>
+        <a href="#restaurants" class="btn-ghost">Top Restaurants</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat">
+          <div class="hstat-n">500+</div>
+          <div class="hstat-l">Restaurants</div>
+        </div>
+        <div class="hstat-div"></div>
+        <div class="hstat">
+          <div class="hstat-n">50K+</div>
+          <div class="hstat-l">Happy Customers</div>
+        </div>
+        <div class="hstat-div"></div>
+        <div class="hstat">
+          <div class="hstat-n">4.9★</div>
+          <div class="hstat-l">Avg Rating</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <canvas id="hero-canvas"></canvas>
+      <p class="canvas-hint">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 11l5-5 5 5M7 17l5-5 5 5" />
+        </svg>
+        Drag to rotate the 3D dish
+      </p>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-strip">
+    <div class="marquee-track" id="mtrack"></div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about" class="section-pad">
+    <div class="container">
+      <div class="about-grid reveal">
+        <div class="about-imgs">
+          <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&auto=format&fit=crop&q=85"
+            alt="Restaurant kitchen" class="aimg-main" />
+          <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&auto=format&fit=crop&q=80"
+            alt="Chef at work" class="aimg-sm" />
+          <div class="about-tag">Est. 2026</div>
+        </div>
+        <div class="about-text">
+          <div class="gold-line"></div>
+          <p class="eyebrow">Our Story</p>
+          <h2 class="section-title">
+            Redefining Food Delivery, <em>One Bite at a Time</em>
+          </h2>
+          <p>
+            Founded in 2026, BiteSpeed bridges passionate culinary creators
+            and hungry food lovers. We partner exclusively with top-rated
+            eateries, maintaining strict hygiene protocols and deploying a
+            state-of-the-art delivery fleet.
+          </p>
+          <p>
+            Every delivery is a promise — fresh, hot, full of flavor. Our
+            riders are trained to be swift and careful, so restaurant-quality
+            meals arrive perfectly at your door.
+          </p>
+          <div class="chips">
+            <span class="chip">🌿 Organic First</span>
+            <span class="chip">🚴 30-min Delivery</span>
+            <span class="chip">🔥 Always Hot</span>
+            <span class="chip">⭐ Top Rated</span>
+            <span class="chip">🛡️ Safe & Hygienic</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3D FOOD SHOWCASE -->
+  <section class="showcase">
+    <div class="container">
+      <div class="showcase-header reveal">
+        <p class="eyebrow">Interactive 3D Experience</p>
+        <h2 class="section-title">See Your Food <em>Before You Order</em></h2>
+        <p class="section-sub" style="margin: 0 auto">
+          Rotate, zoom, and explore our signature dishes in stunning 3D. Drag
+          to spin — experience food like never before.
+        </p>
+      </div>
+      <canvas id="showcase-canvas"></canvas>
+      <div class="showcase-controls">
+        <button class="sctrl active" onclick="setDish(0, this)">
+          🍕 Pizza
+        </button>
+        <button class="sctrl" onclick="setDish(1, this)">🍔 Burger</button>
+        <button class="sctrl" onclick="setDish(2, this)">🍜 Ramen</button>
+        <button class="sctrl" onclick="setDish(3, this)">🍣 Sushi</button>
+        <button class="sctrl" onclick="setDish(4, this)">🥗 Bowl</button>
+      </div>
+      <p class="sc-hint">
+        Drag to rotate · Scroll to zoom · Double-click to reset
+      </p>
+    </div>
+  </section>
+
+  <!-- RESTAURANTS -->
+  <section id="restaurants" class="section-pad">
+    <div class="container">
+      <p class="eyebrow">Handpicked For You</p>
+      <h2 class="section-title">
+        Best &amp; Top Featured <em>Restaurants</em>
+      </h2>
+      <p class="section-sub">
+        Our community's highest-rated dining spots — chosen for outstanding
+        quality, speed, and exceptional taste.
+      </p>
+      <div class="rcards">
+        <article class="rcard reveal">
+          <div class="rcard-img">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&auto=format&fit=crop&q=80"
+              alt="The Italian Bistro" /><span class="rcard-badge">🇮🇹 Italian</span>
+            <div class="rcard-overlay">
+              <button onclick="openMenu('italian')">View Full Menu</button>
+            </div>
+          </div>
+          <div class="rcard-body">
+            <div class="rcard-top">
+              <h3>The Italian Bistro</h3>
+              <span class="rrating">⭐ 4.9</span>
+            </div>
+            <p>
+              Wood-fired pizzas, handcrafted pastas, and Mediterranean salads
+              with organic Italian ingredients.
+            </p>
+            <div class="rmeta">
+              <span>🕒 20 min</span><span>🚚 Free delivery</span>
+            </div>
+          </div>
+        </article>
+        <article class="rcard reveal">
+          <div class="rcard-img">
+            <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?w=600&auto=format&fit=crop&q=80"
+              alt="Burger Mansion" /><span class="rcard-badge">🍔 American</span>
+            <div class="rcard-overlay">
+              <button onclick="openMenu('burger')">View Full Menu</button>
+            </div>
+          </div>
+          <div class="rcard-body">
+            <div class="rcard-top">
+              <h3>Burger Mansion</h3>
+              <span class="rrating">⭐ 4.8</span>
+            </div>
+            <p>
+              Flame-grilled gourmet burgers, loaded waffle fries, and
+              handcrafted milkshakes — ultimate comfort food.
+            </p>
+            <div class="rmeta">
+              <span>🕒 25 min</span><span>🚚 ₹30 delivery</span>
+            </div>
+          </div>
+        </article>
+        <article class="rcard reveal">
+          <div class="rcard-img">
+            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&auto=format&fit=crop&q=80"
+              alt="Green Garden Salad Bar" /><span class="rcard-badge">🥗 Healthy</span>
+            <div class="rcard-overlay">
+              <button onclick="openMenu('salad')">View Full Menu</button>
+            </div>
+          </div>
+          <div class="rcard-body">
+            <div class="rcard-top">
+              <h3>Green Garden</h3>
+              <span class="rrating">⭐ 4.7</span>
+            </div>
+            <p>
+              Organic salad bowls, grain wraps, and cold-press juices for the
+              health-conscious foodie.
+            </p>
+            <div class="rmeta">
+              <span>🕒 15 min</span><span>🚚 Free delivery</span>
+            </div>
+          </div>
+        </article>
+        <article class="rcard reveal">
+          <div class="rcard-img">
+            <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=600&auto=format&fit=crop&q=80"
+              alt="Golden Dragon Sushi" /><span class="rcard-badge">🍣 Japanese</span>
+            <div class="rcard-overlay">
+              <button onclick="openMenu('sushi')">View Full Menu</button>
+            </div>
+          </div>
+          <div class="rcard-body">
+            <div class="rcard-top">
+              <h3>Golden Dragon Sushi</h3>
+              <span class="rrating">⭐ 4.9</span>
+            </div>
+            <p>
+              Fresh sashimi, Maki rolls, and chef-special platters crafted
+              from sustainably sourced seafood.
+            </p>
+            <div class="rmeta">
+              <span>🕒 30 min</span><span>🚚 ₹50 delivery</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOD MENU -->
+  <section id="menu" class="section-pad" style="background: var(--deep)">
+    <div class="container">
+      <p class="eyebrow">Fan Favourites</p>
+      <h2 class="section-title">Popular Food <em>Items</em></h2>
+      <p class="section-sub">
+        Freshly prepared to order — our customers' absolute favorites.
+      </p>
+      <div class="filter-tabs">
+        <button class="ftab active" onclick="filterFood(this, 'all')">
+          All Items
+        </button>
+        <button class="ftab" onclick="filterFood(this, 'italian')">
+          🍕 Italian
+        </button>
+        <button class="ftab" onclick="filterFood(this, 'american')">
+          🍔 American
+        </button>
+        <button class="ftab" onclick="filterFood(this, 'japanese')">
+          🍣 Japanese
+        </button>
+        <button class="ftab" onclick="filterFood(this, 'healthy')">
+          🥗 Healthy
+        </button>
+      </div>
+      <div class="food-grid" id="food-grid">
+        <article class="fcard reveal" data-cat="italian">
+          <div class="fcard-img">
+            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500&auto=format&fit=crop&q=80"
+              alt="Margherita Pizza" /><span class="ftag">🔥 Bestseller</span>
+            <div class="flike" onclick="toggleLike(this)">♡</div>
+          </div>
+          <div class="fcard-body">
+            <div class="fcard-top">
+              <h3>Classic Margherita Pizza</h3>
+              <span class="fprice">₹349</span>
+            </div>
+            <p>
+              Creamy mozzarella, San Marzano tomato sauce, fresh basil, and
+              extra virgin olive oil on a crispy hand-tossed crust.
+            </p>
+            <div class="factions">
+              <div class="qty">
+                <button onclick="chQty(this, -1)">−</button><span>1</span><button onclick="chQty(this, 1)">+</button>
+              </div>
+              <button class="btn-cart" onclick="addCart(this, 'Classic Margherita Pizza', 349)">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="fcard reveal" data-cat="american">
+          <div class="fcard-img">
+            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&auto=format&fit=crop&q=80"
+              alt="Double Bacon Cheeseburger" /><span class="ftag">⭐ Top Rated</span>
+            <div class="flike" onclick="toggleLike(this)">♡</div>
+          </div>
+          <div class="fcard-body">
+            <div class="fcard-top">
+              <h3>Double Bacon Cheeseburger</h3>
+              <span class="fprice">₹429</span>
+            </div>
+            <p>
+              Two flame-grilled beef patties, crispy bacon, melted cheddar,
+              lettuce, tomato, pickles, and signature house sauce.
+            </p>
+            <div class="factions">
+              <div class="qty">
+                <button onclick="chQty(this, -1)">−</button><span>1</span><button onclick="chQty(this, 1)">+</button>
+              </div>
+              <button class="btn-cart" onclick="addCart(this, 'Double Bacon Cheeseburger', 429)">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="fcard reveal" data-cat="japanese">
+          <div class="fcard-img">
+            <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=500&auto=format&fit=crop&q=80"
+              alt="Signature Sushi Platter" /><span class="ftag">🍣 Chef's Pick</span>
+            <div class="flike" onclick="toggleLike(this)">♡</div>
+          </div>
+          <div class="fcard-body">
+            <div class="fcard-top">
+              <h3>Signature Sushi Platter</h3>
+              <span class="fprice">₹699</span>
+            </div>
+            <p>
+              12 premium rolls — spicy tuna, California, salmon nigiri, and
+              tempura shrimp with wasabi and pickled ginger.
+            </p>
+            <div class="factions">
+              <div class="qty">
+                <button onclick="chQty(this, -1)">−</button><span>1</span><button onclick="chQty(this, 1)">+</button>
+              </div>
+              <button class="btn-cart" onclick="addCart(this, 'Signature Sushi Platter', 699)">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="fcard reveal" data-cat="healthy">
+          <div class="fcard-img">
+            <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=500&auto=format&fit=crop&q=80"
+              alt="Avocado Toast" /><span class="ftag">🌿 Healthy</span>
+            <div class="flike" onclick="toggleLike(this)">♡</div>
+          </div>
+          <div class="fcard-body">
+            <div class="fcard-top">
+              <h3>Avocado Toast &amp; Poached Egg</h3>
+              <span class="fprice">₹289</span>
+            </div>
+            <p>
+              Thick-cut sourdough, smashed avocado, cherry tomatoes, crumbled
+              feta, and a perfectly poached egg.
+            </p>
+            <div class="factions">
+              <div class="qty">
+                <button onclick="chQty(this, -1)">−</button><span>1</span><button onclick="chQty(this, 1)">+</button>
+              </div>
+              <button class="btn-cart" onclick="addCart(this, 'Avocado Toast & Poached Egg', 289)">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="fcard reveal" data-cat="italian">
+          <div class="fcard-img">
+            <img src="https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?w=500&auto=format&fit=crop&q=80"
+              alt="Spaghetti Carbonara" /><span class="ftag">🍝 New</span>
+            <div class="flike" onclick="toggleLike(this)">♡</div>
+          </div>
+          <div class="fcard-body">
+            <div class="fcard-top">
+              <h3>Spaghetti Carbonara</h3>
+              <span class="fprice">₹399</span>
+            </div>
+            <p>
+              Al dente spaghetti in a silky egg-and-parmesan sauce with crispy
+              guanciale and black pepper.
+            </p>
+            <div class="factions">
+              <div class="qty">
+                <button onclick="chQty(this, -1)">−</button><span>1</span><button onclick="chQty(this, 1)">+</button>
+              </div>
+              <button class="btn-cart" onclick="addCart(this, 'Spaghetti Carbonara', 399)">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="fcard reveal" data-cat="american">
+          <div class="fcard-img">
+            <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?w=500&auto=format&fit=crop&q=80"
+              alt="Loaded Waffle Fries" /><span class="ftag">🧀 Comfort</span>
+            <div class="flike" onclick="toggleLike(this)">♡</div>
+          </div>
+          <div class="fcard-body">
+            <div class="fcard-top">
+              <h3>Loaded Waffle Fries</h3>
+              <span class="fprice">₹229</span>
+            </div>
+            <p>
+              Golden waffle fries with cheddar sauce, jalapeños, sour cream,
+              spring onions, and smoky BBQ drizzle.
+            </p>
+            <div class="factions">
+              <div class="qty">
+                <button onclick="chQty(this, -1)">−</button><span>1</span><button onclick="chQty(this, 1)">+</button>
+              </div>
+              <button class="btn-cart" onclick="addCart(this, 'Loaded Waffle Fries', 229)">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section-pad">
+    <div class="container">
+      <p class="eyebrow">What People Say</p>
+      <h2 class="section-title">Loved by <em>Thousands</em></h2>
+      <div class="tgrid">
+        <div class="tcard reveal">
+          <div class="tstars">★★★★★</div>
+          <p>
+            "Absolutely the fastest delivery I've ever experienced. The pizza
+            arrived piping hot and tasted incredible — better than dining in!"
+          </p>
+          <div class="tauthor">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&auto=format&fit=crop"
+              alt="Rohan M" />
+            <div><strong>Rohan M.</strong><small>Mumbai</small></div>
+          </div>
+        </div>
+        <div class="tcard hl reveal">
+          <div class="tstars">★★★★★</div>
+          <p>
+            "Green Garden is my go-to every morning. Fresh, healthy, delivered
+            before I even finish getting ready. Genuinely life-changing."
+          </p>
+          <div class="tauthor">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=80&auto=format&fit=crop"
+              alt="Priya K" />
+            <div><strong>Priya K.</strong><small>Pune</small></div>
+          </div>
+        </div>
+        <div class="tcard reveal">
+          <div class="tstars">★★★★★</div>
+          <p>
+            "The sushi platter from Golden Dragon is next level. I've ordered
+            it five times this month. Fresh, beautiful, and incredibly fast."
+          </p>
+          <div class="tauthor">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop"
+              alt="Arjun S" />
+            <div><strong>Arjun S.</strong><small>Bangalore</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section-pad" style="background: var(--deep)">
+    <div class="container">
+      <div class="cgrid reveal">
+        <div class="cinfo">
+          <div class="gold-line"></div>
+          <p class="eyebrow">Get In Touch</p>
+          <h2 class="section-title">We'd Love to <em>Hear From You</em></h2>
+          <p>
+            Questions about your order, partnership opportunities, or feedback
+            — we're here 24/7 for you.
+          </p>
+          <div class="clist">
+            <div class="citem">
+              <div class="cicon">📞</div>
+              <div>
+                <strong>Call Us</strong>
+                <p>+91 98765 43210</p>
+              </div>
+            </div>
+            <div class="citem">
+              <div class="cicon">📧</div>
+              <div>
+                <strong>Email Us</strong>
+                <p>hello@bitespeed.in</p>
+              </div>
+            </div>
+            <div class="citem">
+              <div class="cicon">📍</div>
+              <div>
+                <strong>Head Office</strong>
+                <p>Bandra West, Mumbai 400050</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cform-wrap">
+          <form class="cform" onsubmit="submitForm(event)">
+            <div class="fg">
+              <label>Full Name</label><input type="text" id="name" placeholder="e.g. Ravi Sharma" required />
+            </div>
+            <div class="fg">
+              <label>Email Address</label><input type="email" id="email" placeholder="you@example.com" required />
+            </div>
+            <div class="fg">
+              <label>Mobile Number</label><input type="tel" id="phone" placeholder="+91 XXXXX XXXXX" required />
+            </div>
+            <div class="fg">
+              <label>Message</label><textarea id="msg" rows="4" placeholder="Tell us how we can help..."></textarea>
+            </div>
+            <button type="submit" class="btn-primary full">
+              Send Message →
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="fgrid">
+        <div class="fbrand">
+          <a href="#home" class="logo">
+            <div class="logo-dot"></div>
+            BiteSpeed
+          </a>
+          <p>
+            Bringing joy, one meal at a time. Fresh food delivered fast —
+            every single day across India.
+          </p>
+          <div class="socials">
+            <a href="https://linkedin.com" target="_blank" class="sbtn" aria-label="LinkedIn"><svg viewBox="0 0 24 24"
+                fill="currentColor">
+                <path
+                  d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+              </svg></a>
+            <a href="https://twitter.com" target="_blank" class="sbtn" aria-label="X"><svg viewBox="0 0 24 24"
+                fill="currentColor">
+                <path
+                  d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg></a>
+            <a href="https://youtube.com" target="_blank" class="sbtn" aria-label="YouTube"><svg viewBox="0 0 24 24"
+                fill="currentColor">
+                <path
+                  d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z" />
+              </svg></a>
+            <a href="https://instagram.com" target="_blank" class="sbtn" aria-label="Instagram"><svg viewBox="0 0 24 24"
+                fill="currentColor">
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
+              </svg></a>
+          </div>
+        </div>
+        <div class="flinks">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#restaurants">Restaurants</a></li>
+            <li><a href="#menu">Food Menu</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="flinks">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">Track Order</a></li>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Refund Policy</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Partner With Us</a></li>
+          </ul>
+        </div>
+        <div class="fapp">
+          <h4>Get the App</h4>
+          <p>
+            Order faster on our mobile app — available on iOS and Android.
+          </p>
+          <div class="appbtns">
+            <a href="#" class="abtn">🍎 App Store</a><a href="#" class="abtn">🤖 Play Store</a>
+          </div>
+        </div>
+      </div>
+      <div class="fbottom">
+        <p>© 2026 BiteSpeed Food Delivery Services. All rights reserved.</p>
+        <p>Made with ❤️ in India</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- RESTAURANT MENU MODAL -->
+  <div class="modal-bg" id="menu-modal" onclick="bgClose(event, 'menu-modal')">
+    <div class="modal-box">
+      <button class="mclose" onclick="closeModal('menu-modal')">✕</button>
+      <div class="modal-inner" id="modal-content"></div>
+    </div>
+  </div>
+
+  <!-- ORDER SUCCESS MODAL -->
+  <div class="modal-bg" id="order-modal" onclick="bgClose(event, 'order-modal')">
+    <div class="modal-box order-box">
+      <div class="order-success">
+        <div class="osicon">🎉</div>
+        <h2>Order Placed!</h2>
+        <p>
+          Your food is being prepared.<br />Estimated delivery:
+          <strong>25–30 minutes</strong>
+        </p>
+        <div class="order-id">Order #BS<span id="onum"></span></div>
+        <button class="btn-primary" onclick="closeModal('order-modal')">
+          Track My Order →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIVE DELIVERY TRACKER WIDGET -->
+  <div class="delivery-tracker" id="delivery-tracker">
+    <div class="dt-header">
+      <span class="dt-icon">🛵</span>
+      <div class="dt-info">
+        <strong>Live Deliveries Near You</strong>
+        <small id="dt-count">Loading...</small>
+      </div>
+      <button class="dt-close" onclick="document.getElementById('delivery-tracker').classList.add('dt-hidden')"
+        aria-label="Close">✕</button>
+    </div>
+    <div class="dt-bar">
+      <div class="dt-fill" id="dt-fill"></div>
+    </div>
+    <p class="dt-label" id="dt-label">Finding restaurants...</p>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <button class="scrtop" id="scrtop" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+    ↑
+  </button>
+  <script src="script.js"></script>
+</body>
+
+</html>
