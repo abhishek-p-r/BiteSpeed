@@ -33,8 +33,121 @@
 
   <!-- LOADER -->
   <div id="loader">
-    <div class="lring"></div>
-    <p class="ltxt">BiteSpeed</p>
+    <div class="loader-cyber-grid"></div>
+    <canvas id="loader-starfield"></canvas>
+    <div class="loader-scanline"></div>
+
+    <!-- Holographic Portal Rings -->
+    <div class="loader-hologram-ring ring-outer"></div>
+    <div class="loader-hologram-ring ring-mid"></div>
+    <div class="loader-hologram-ring ring-inner"></div>
+
+    <!-- Telemetry HUD Sidebars -->
+    <div class="loader-hud-panel left-panel">
+      <div class="hud-panel-title">SYSTEM STATUS</div>
+      <div class="hud-panel-row"><span>COURIER:</span> <span class="hud-glow">BITESPEED-ONE</span></div>
+      <div class="hud-panel-row"><span>VECTOR:</span> <span class="hud-glow">SUB-ORBITAL X4</span></div>
+      <div class="hud-panel-row"><span>WARP CORE:</span> <span id="hud-val-warp">99.8%</span></div>
+      <div class="hud-panel-row"><span>STABILITY:</span> <span id="hud-val-stab">100.0%</span></div>
+      <div class="hud-panel-row"><span>COORDINATES:</span> <span id="hud-val-coords">45.922 / -89.123</span></div>
+    </div>
+
+    <div class="loader-hud-panel right-panel">
+      <div class="hud-panel-title">TELEMETRY STREAM</div>
+      <div class="hud-panel-row"><span>FREQUENCY:</span> <span id="hud-val-freq">4.88 GHz</span></div>
+      <div class="hud-panel-row"><span>ALTITUDE:</span> <span id="hud-val-alt">12,440 M</span></div>
+      <div class="hud-panel-row"><span>DENSITY:</span> <span id="hud-val-dens">0.12 kg/m³</span></div>
+      <div class="hud-panel-row"><span>TARGET RANGE:</span> <span id="hud-val-range">14.2 km</span></div>
+      <div class="hud-panel-row"><span>SIGNAL:</span> <span id="hud-val-sig">100%</span></div>
+    </div>
+
+    <!-- Sound Control Button -->
+    <button class="loader-sound-toggle" id="loader-sound-toggle" onclick="toggleLoaderSound()">
+      <span class="sound-icon">🔊</span> AUDIO SYNTH ACTIVE
+    </button>
+
+    <!-- Floating food image cards -->
+    <div class="loader-food-cards" id="loader-food-cards">
+      <div class="floating-food-card" style="--delay:0s; --x:-250px; --y:-220px;"><img src="images/margherita_pizza.png"
+          alt="Pizza"><span>🍕 Fresh Pizza</span></div>
+      <div class="floating-food-card" style="--delay:1.5s; --x:280px; --y:-180px;"><img
+          src="images/bacon_cheeseburger.png" alt="Burger"><span>🍔 Gourmet Burger</span></div>
+      <div class="floating-food-card" style="--delay:3s; --x:-320px; --y:180px;"><img src="images/sushi_platter.png"
+          alt="Sushi"><span>🍣 Premium Sushi</span></div>
+      <div class="floating-food-card" style="--delay:4.5s; --x:260px; --y:220px;"><img src="images/ramen_bowl.png"
+          alt="Ramen"><span>🍜 Hot Ramen</span></div>
+      <div class="floating-food-card" style="--delay:6s; --x:60px; --y:-300px;"><img src="images/avocado_salad.png"
+          alt="Salad"><span>🥗 Healthy Bowl</span></div>
+      <div class="floating-food-card" style="--delay:7.5s; --x:-180px; --y:80px;"><img
+          src="images/spaghetti_carbonara.png" alt="Pasta"><span>🍝 Carbonara</span></div>
+      <div class="floating-food-card" style="--delay:9s; --x:180px; --y:-80px;"><img src="images/waffle_fries.png"
+          alt="Fries"><span>🍟 Waffle Fries</span></div>
+    </div>
+    <div class="loader-content">
+      <div class="loader-badge">SYSTEM INITIALIZATION</div>
+      <h1 class="loader-logo">BiteSpeed</h1>
+      <div class="loader-sub">QUANTUM GASTROMONY TELEPORTATION COURIER</div>
+
+      <!-- Cinematic Animation Stage -->
+      <div class="loader-animation-stage" id="loader-animation-stage">
+        <!-- Spaceship -->
+        <div class="cinematic-ship" id="cinematic-ship">
+          <svg viewBox="0 0 100 50" width="100" height="50">
+            <path d="M 15 25 L 45 10 L 75 10 L 95 25 L 75 40 L 45 40 Z" fill="#151e2e" stroke="#d4a853"
+              stroke-width="2" />
+            <path d="M 45 10 L 55 25 L 45 40" fill="none" stroke="#00f0ff" stroke-width="1.5" />
+            <polygon points="5,25 20,18 20,32" fill="#ff6b35" />
+            <rect x="75" y="22" width="10" height="6" rx="2" fill="#00f0ff" class="cockpit-glow" />
+          </svg>
+        </div>
+        <!-- Cargo Pod Box -->
+        <div class="cinematic-box" id="cinematic-box">
+          <div class="box-half box-top">
+            <svg viewBox="0 0 60 30" width="60" height="30">
+              <path d="M 10 30 L 30 10 L 50 30 Z" fill="#1d2e47" stroke="#00f0ff" stroke-width="2" />
+            </svg>
+          </div>
+          <div class="box-half box-bottom">
+            <svg viewBox="0 0 60 30" width="60" height="30">
+              <path d="M 10 0 L 30 20 L 50 0 Z" fill="#1d2e47" stroke="#00f0ff" stroke-width="2" />
+            </svg>
+          </div>
+          <!-- Target dot box glow indicator -->
+          <div class="box-target-dot" id="box-target-dot"></div>
+        </div>
+        <!-- Missile -->
+        <div class="cinematic-missile" id="cinematic-missile"></div>
+        <!-- Laser Blast / Explosion -->
+        <div class="cinematic-explosion" id="cinematic-explosion"></div>
+        <!-- Floating Foods Burst -->
+        <div class="cinematic-burst-foods" id="cinematic-burst-foods">
+          <img src="images/margherita_pizza.png" class="burst-food-img pizza" alt="Pizza">
+          <img src="images/bacon_cheeseburger.png" class="burst-food-img burger" alt="Burger">
+          <img src="images/sushi_platter.png" class="burst-food-img sushi" alt="Sushi">
+        </div>
+        <!-- Revealed 3D model / Holographic drone -->
+        <div class="cinematic-drone-reveal" id="cinematic-drone-reveal">
+          <img src="images/delivery_drone.png" alt="Drone">
+        </div>
+      </div>
+
+      <!-- Welcome text overlay -->
+      <div class="cinematic-welcome-msg" id="cinematic-welcome-msg">
+        WELCOME TO BITESPEED
+      </div>
+
+      <div class="loader-progress-wrapper">
+        <div class="loader-progress-track">
+          <div class="loader-progress-bar" id="loader-progress-bar"></div>
+        </div>
+        <div class="loader-percentage" id="loader-percentage">00%</div>
+      </div>
+
+      <div class="loader-terminal" id="loader-terminal">
+        &gt; Accessing sub-orbital space delivery vector...<br>
+        &gt; Warning: Atmospheric turbulence detected...
+      </div>
+    </div>
   </div>
 
   <!-- CART OVERLAY + DRAWER -->
@@ -70,6 +183,24 @@
       <a href="#contact" class="nav-link">Contact</a>
     </nav>
     <div class="hactions">
+      <button class="theme-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Light/Dark Theme">
+        <svg class="theme-icon sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="theme-icon moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
       <button class="cart-btn" onclick="toggleCart()">
         Cart <span class="cbadge" id="cbadge">0</span>
       </button>
@@ -208,6 +339,92 @@
     </div>
   </section>
 
+  <!-- 3D DELIVERY MAZE GAME -->
+  <section id="maze-section" class="maze-section section-pad">
+    <div class="container">
+      <div class="maze-header reveal">
+        <p class="eyebrow">Interactive Space Delivery</p>
+        <h2 class="section-title">Cyber Gastronomy <em>Delivery Maze</em></h2>
+        <p class="section-sub" style="margin: 0 auto 2rem">
+          Guide the BiteSpeed quantum delivery drone through the neon cyber-maze to beam coffee and meals directly to
+          the customer waiting at the lounge!
+        </p>
+      </div>
+
+      <div class="maze-wrapper">
+        <div class="maze-canvas-wrapper">
+          <canvas id="maze-canvas"></canvas>
+
+          <!-- Floating game controls overlay -->
+          <div class="maze-ui-controls">
+            <button onclick="zoomGame(0.85)" title="Zoom In">🔍﹢</button>
+            <button onclick="zoomGame(1.15)" title="Zoom Out">🔍﹣</button>
+            <button onclick="toggleGameFullscreen()" title="Toggle Fullscreen">⛶</button>
+          </div>
+
+          <!-- Floating game notifications -->
+          <div class="game-toast" id="game-toast"></div>
+
+          <!-- Game overlay screen -->
+          <div class="maze-overlay" id="maze-overlay">
+            <div class="maze-start-screen" id="maze-start-screen">
+              <div class="maze-drone-icon">🛸</div>
+              <h3>Warp Drive Delivery</h3>
+              <p>Navigate the spaceship using ARROWS / WASD or the buttons below. Deliver hot coffee and food to the
+                lounge at the center of the grid.</p>
+              <button class="btn-primary" onclick="startMazeGame()">Launch Mission</button>
+            </div>
+
+            <div class="maze-win-screen" id="maze-win-screen" style="display: none;">
+              <div class="maze-win-icon">🎉</div>
+              <h3>Delivery Complete!</h3>
+              <p>The food was delivered fresh, hot, and with perfect quantum stability. The client is fully satisfied!
+              </p>
+              <div class="maze-reward">
+                <small>UNLOCKED PROMO CODE</small>
+                <div class="maze-code" id="maze-code" onclick="copyMazeCode()">MAZE50</div>
+                <small class="click-copy-hint">Click code to copy (₹150 OFF + Free Delivery)</small>
+              </div>
+              <button class="btn-primary" onclick="restartMazeGame()">Play Again</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- HUD & Controls -->
+        <div class="maze-hud">
+          <div class="hud-item">
+            <span class="hud-label">Battery Charge</span>
+            <div class="hud-bar-container">
+              <div class="hud-bar" id="hud-battery" style="width: 100%"></div>
+            </div>
+          </div>
+          <div class="hud-item">
+            <span class="hud-label">Signal Stability</span>
+            <div class="hud-bar-container">
+              <div class="hud-bar" id="hud-signal" style="width: 100%"></div>
+            </div>
+          </div>
+          <div class="hud-item speed">
+            <span class="hud-label">Warp Velocity</span>
+            <div class="hud-val" id="hud-velocity">0.0 km/s</div>
+          </div>
+        </div>
+
+        <!-- On-Screen Controls for mobile/mouse users -->
+        <div class="maze-controls">
+          <div class="mctrl-row">
+            <button class="mctrl-btn up" id="mctrl-up">▲</button>
+          </div>
+          <div class="mctrl-row">
+            <button class="mctrl-btn left" id="mctrl-left">◀</button>
+            <button class="mctrl-btn down" id="mctrl-down">▼</button>
+            <button class="mctrl-btn right" id="mctrl-right">▶</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- RESTAURANTS -->
   <section id="restaurants" class="section-pad">
     <div class="container">
@@ -340,8 +557,7 @@
       <div class="food-grid" id="food-grid">
         <article class="fcard reveal" data-cat="italian">
           <div class="fcard-img">
-            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500&auto=format&fit=crop&q=80"
-              alt="Margherita Pizza" /><span class="ftag">🔥 Bestseller</span>
+            <img src="images/margherita_pizza.png" alt="Margherita Pizza" /><span class="ftag">🔥 Bestseller</span>
             <div class="flike" onclick="toggleLike(this)">♡</div>
           </div>
           <div class="fcard-body">
@@ -366,8 +582,8 @@
 
         <article class="fcard reveal" data-cat="american">
           <div class="fcard-img">
-            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&auto=format&fit=crop&q=80"
-              alt="Double Bacon Cheeseburger" /><span class="ftag">⭐ Top Rated</span>
+            <img src="images/bacon_cheeseburger.png" alt="Double Bacon Cheeseburger" /><span class="ftag">⭐ Top
+              Rated</span>
             <div class="flike" onclick="toggleLike(this)">♡</div>
           </div>
           <div class="fcard-body">
@@ -392,8 +608,7 @@
 
         <article class="fcard reveal" data-cat="japanese">
           <div class="fcard-img">
-            <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=500&auto=format&fit=crop&q=80"
-              alt="Signature Sushi Platter" /><span class="ftag">🍣 Chef's Pick</span>
+            <img src="images/sushi_platter.png" alt="Signature Sushi Platter" /><span class="ftag">🍣 Chef's Pick</span>
             <div class="flike" onclick="toggleLike(this)">♡</div>
           </div>
           <div class="fcard-body">
@@ -418,8 +633,7 @@
 
         <article class="fcard reveal" data-cat="healthy">
           <div class="fcard-img">
-            <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=500&auto=format&fit=crop&q=80"
-              alt="Avocado Toast" /><span class="ftag">🌿 Healthy</span>
+            <img src="images/avocado_salad.png" alt="Avocado Toast" /><span class="ftag">🌿 Healthy</span>
             <div class="flike" onclick="toggleLike(this)">♡</div>
           </div>
           <div class="fcard-body">
@@ -444,8 +658,7 @@
 
         <article class="fcard reveal" data-cat="italian">
           <div class="fcard-img">
-            <img src="https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?w=500&auto=format&fit=crop&q=80"
-              alt="Spaghetti Carbonara" /><span class="ftag">🍝 New</span>
+            <img src="images/spaghetti_carbonara.png" alt="Spaghetti Carbonara" /><span class="ftag">🍝 New</span>
             <div class="flike" onclick="toggleLike(this)">♡</div>
           </div>
           <div class="fcard-body">
@@ -470,8 +683,7 @@
 
         <article class="fcard reveal" data-cat="american">
           <div class="fcard-img">
-            <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?w=500&auto=format&fit=crop&q=80"
-              alt="Loaded Waffle Fries" /><span class="ftag">🧀 Comfort</span>
+            <img src="images/waffle_fries.png" alt="Loaded Waffle Fries" /><span class="ftag">🧀 Comfort</span>
             <div class="flike" onclick="toggleLike(this)">♡</div>
           </div>
           <div class="fcard-body">
