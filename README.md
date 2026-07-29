@@ -1,6 +1,6 @@
 # 🍕 Tap Foods - Enterprise Multi-Vendor Food Delivery & Restaurant Management System
 
-[![Java](https://img.shields.io/badge/Java-17-orange.svg)](https://www.oracle.com/java/)
+[![Java](https://img.shields.io/badge/Java-25-orange.svg)](https://www.oracle.com/java/)
 [![Jakarta EE](https://img.shields.io/badge/Jakarta%20EE-10-blue.svg)](https://jakarta.ee/)
 [![MySQL](https://img.shields.io/badge/MySQL-8.0-blue.svg)](https://www.mysql.com/)
 [![Architecture](https://img.shields.io/badge/Architecture-MVC%20%7C%20DAO-brightgreen.svg)]()
