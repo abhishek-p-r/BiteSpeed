@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed — BiteSpeed Teleportation</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/theme.js"></script>
+
+    <style>
+        body {
+            background-color: #050508;
+            color: #ecf0f1;
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .confirm-wrapper {
+            margin-top: 100px;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        .confirm-card {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            border-radius: 24px;
+            padding: 45px 35px;
+            max-width: 650px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 240, 255, 0.15);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInScale 0.6s ease-out;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.92);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .confirm-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #00f0ff, #2ecc71, #a855f7, #00f0ff);
+            background-size: 300% 100%;
+            animation: gradientShift 4s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .party-badge {
+            width: 80px;
+            height: 80px;
+            background: rgba(46, 204, 113, 0.15);
+            border: 2px solid #2ecc71;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            margin: 0 auto 20px auto;
+            box-shadow: 0 0 25px rgba(46, 204, 113, 0.4);
+            animation: bounceGlow 2s infinite alternate;
+        }
+
+        @keyframes bounceGlow {
+            0% {
+                transform: translateY(0);
+                box-shadow: 0 0 20px rgba(46, 204, 113, 0.3);
+            }
+
+            100% {
+                transform: translateY(-8px);
+                box-shadow: 0 0 35px rgba(46, 204, 113, 0.7);
+            }
+        }
+
+        .confirm-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0 0 10px 0;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .confirm-subtitle {
+            color: #94a3b8;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .order-badge-pill {
+            display: inline-block;
+            background: rgba(0, 240, 255, 0.12);
+            border: 1px solid rgba(0, 240, 255, 0.4);
+            color: #00f0ff;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        /* Cart Cleared Notice */
+        .cart-cleared-notice {
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            border-radius: 12px;
+            padding: 12px 18px;
+            color: #2ecc71;
+            font-size: 0.92rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 30px;
+        }
+
+        /* Stepper Visual */
+        .stepper-container {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 35px 0 40px 0;
+        }
+
+        .stepper-container::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1;
+        }
+
+        .stepper-progress {
+            position: absolute;
+            top: 20px;
+            left: 10%;
+            width: 35%;
+            height: 3px;
+            background: linear-gradient(90deg, #2ecc71, #00f0ff);
+            z-index: 2;
+            transition: width 1s ease;
+        }
+
+        .step-item {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+
+        .step-circle {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #0f172a;
+            border: 2px solid #334155;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: #64748b;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .step-item.active .step-circle {
+            border-color: #2ecc71;
+            background: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+            box-shadow: 0 0 15px rgba(46, 204, 113, 0.5);
+        }
+
+        .step-item.current .step-circle {
+            border-color: #00f0ff;
+            background: rgba(0, 240, 255, 0.2);
+            color: #00f0ff;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.7);
+            animation: pulseStep 1.5s infinite;
+        }
+
+        @keyframes pulseStep {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .step-label {
+            font-size: 0.82rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .step-item.active .step-label,
+        .step-item.current .step-label {
+            color: #ecf0f1;
+            font-weight: 600;
+        }
+
+        /* Countdown Card */
+        .countdown-box {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 30px;
+        }
+
+        .timer-val {
+            font-family: monospace;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #00f0ff;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+        }
+
+        /* Actions */
+        .action-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .btn-confirm-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary-glow {
+            background: linear-gradient(135deg, #00f0ff, #0077ff);
+            color: #000000;
+            border: none;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+        }
+
+        .btn-primary-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.7);
+        }
+
+        .btn-ghost-glow {
+            background: rgba(255, 255, 255, 0.05);
+            color: #ecf0f1;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-ghost-glow:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: #00f0ff;
+        }
+
+        .full-btn {
+            grid-column: span 2;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Navigation -->
+    <header class="hdr" id="hdr">
+        <div class="hdr-container">
+            <a href="index.jsp" class="logo">
+                <span class="logo-accent">Bite</span>Speed
+            </a>
+
+            <nav class="nav">
+                <a href="index.jsp" class="nlink">Home</a>
+                <a href="restaurants.jsp" class="nlink">Restaurants</a>
+                <a href="menu.jsp" class="nlink">Menu</a>
+                <a href="orders.jsp" class="nlink">My Orders</a>
+            </nav>
+
+            <div class="hactions" style="display: flex; align-items: center; gap: 12px;">
+                <div id="auth-header-container" class="auth-header-container">
+                    <!-- Session Auth Controls -->
+                </div>
+                <a href="cart.jsp" class="cart-btn"
+                    style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+                    Cart <span class="cbadge" id="cbadge">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="confirm-wrapper">
+        <div class="confirm-card">
+
+            <div class="party-badge">🎉</div>
+
+            <h1 class="confirm-title">ORDER CONFIRMED!</h1>
+            <p class="confirm-subtitle">Your delicious order has been dispatched directly to the restaurant kitchen!</p>
+
+            <div class="order-badge-pill" id="order-id-display">
+                ORDER ID: #BS<span id="order-num">1023</span>
+            </div>
+
+            <!-- Cart Cleared Banner -->
+            <div class="cart-cleared-notice">
+                <span>✔</span> <strong>Cart Emptied:</strong> Shopping cart items have been cleared.
+            </div>
+
+            <!-- Stepper Visual -->
+            <div class="stepper-container">
+                <div class="stepper-progress"></div>
+
+                <div class="step-item active">
+                    <div class="step-circle">✓</div>
+                    <div class="step-label">Order Placed</div>
+                </div>
+
+                <div class="step-item current">
+                    <div class="step-circle">👨‍🍳</div>
+                    <div class="step-label">Preparing</div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-circle">🛵</div>
+                    <div class="step-label">On The Way</div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-circle">🏠</div>
+                    <div class="step-label">Delivered</div>
+                </div>
+            </div>
+
+            <!-- Countdown Box -->
+            <div class="countdown-box">
+                <div
+                    style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px;">
+                    Guaranteed Express Arrival In</div>
+                <div class="timer-val" id="countdown-timer">29:59</div>
+            </div>
+
+            <!-- Action Grid -->
+            <div class="action-grid">
+                <a id="btn-invoice-link" href="orders.jsp" class="btn-confirm-action btn-primary-glow">
+                    📜 View Invoice & Details
+                </a>
+                <a href="orders.jsp" class="btn-confirm-action btn-ghost-glow">
+                    📦 Track All Orders
+                </a>
+                <a href="index.jsp" class="btn-confirm-action btn-ghost-glow full-btn">
+                    🏠 Return to Homepage
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Script to Clear Cart and Manage Telemetry -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 1. Force Clear Client LocalStorage Cart & Badge
+            try {
+                localStorage.removeItem("cart");
+                localStorage.removeItem("bitespeed_cart");
+                sessionStorage.removeItem("cart");
+                sessionStorage.removeItem("cartCount");
+                if (window.cart) window.cart = [];
+
+                const cbadge = document.getElementById("cbadge");
+                if (cbadge) cbadge.textContent = "0";
+            } catch (e) { }
+
+            // 2. Parse Order ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('orderId');
+            if (orderId && orderId !== 'null' && orderId !== '') {
+                document.getElementById('order-num').textContent = orderId;
+                document.getElementById('btn-invoice-link').href = 'orderDetails.jsp?orderId=' + orderId;
+            }
+
+            // 3. Live 30-Minute Countdown Timer
+            let duration = 30 * 60 - 1;
+            const timerDisplay = document.getElementById('countdown-timer');
+
+            setInterval(function () {
+                const minutes = Math.floor(duration / 60);
+                const seconds = duration % 60;
+                const formattedMins = minutes < 10 ? '0' + minutes : minutes;
+                const formattedSecs = seconds < 10 ? '0' + seconds : seconds;
+
+                if (timerDisplay) {
+                    timerDisplay.textContent = formattedMins + ':' + formattedSecs;
+                }
+                if (--duration < 0) {
+                    duration = 0;
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+
+</html>

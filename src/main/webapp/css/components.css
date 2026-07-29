@@ -1,0 +1,881 @@
+/* ============================================================
+   BiteSpeed — Reusable UI Components
+   css/components.css
+   Depends on: variables.css, base.css
+
+   Contents:
+     1.  Buttons  (.btn-primary, .btn-ghost, .btn-cart, .btn-checkout)
+     2.  Forms    (.fg, .pw-group, .qty)
+     3.  Cards    (.rcard, .fcard, .tcard)
+     4.  Chips    (.chip)
+     5.  Badges   (.ftag, .rcard-badge)
+     6.  Modal    (.modal-bg, .modal-box)
+     7.  Cart Drawer
+     8.  Keyframes & Animations
+============================================================ */
+
+
+/* ══════════════════════════════════════════════
+   1. BUTTONS
+══════════════════════════════════════════════ */
+
+/* Primary golden button */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: #0a0f1e;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: 50px;
+  transition: transform var(--trans), box-shadow var(--trans);
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(212, 168, 83, 0.4);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  transform: none;
+  cursor: not-allowed;
+}
+
+.btn-primary.full {
+  width: 100%;
+}
+
+/* Ghost / outline button */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.85rem 2rem;
+  border: 1.5px solid rgba(212, 168, 83, 0.5);
+  color: var(--gold);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 50px;
+  transition: all var(--trans);
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.btn-ghost:hover {
+  background: rgba(212, 168, 83, 0.1);
+  border-color: var(--gold);
+}
+
+/* Add-to-cart button (inside food cards) */
+.btn-cart {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: #0a0f1e;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  transition: all var(--trans);
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.btn-cart:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(212, 168, 83, 0.35);
+}
+
+/* Checkout button */
+.btn-checkout {
+  width: 100%;
+  padding: 0.85rem;
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: #0a0f1e;
+  border-radius: 10px;
+  font-weight: 800;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* Loading state (shared across auth buttons) */
+.btn-loader {
+  display: none;
+}
+
+.btn-primary.loading .btn-text {
+  display: none;
+}
+
+.btn-primary.loading .btn-loader {
+  display: inline;
+}
+
+
+/* ══════════════════════════════════════════════
+   2. FORMS
+══════════════════════════════════════════════ */
+
+/* Form group */
+.fg {
+  margin-bottom: 1.2rem;
+}
+
+.fg label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 0.45rem;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+.fg input,
+.fg textarea,
+.fg select {
+  width: 100%;
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.72rem 1rem;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: border-color var(--trans), box-shadow var(--trans);
+  outline: none;
+}
+
+.fg input:focus,
+.fg textarea:focus,
+.fg select:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(212, 168, 83, 0.12);
+}
+
+.fg input.valid   { border-color: var(--success); }
+.fg input.invalid { border-color: var(--danger); }
+.fg textarea      { resize: vertical; }
+
+/* Password group with eye toggle */
+.pw-input-wrapper {
+  position: relative;
+}
+
+.pw-input-wrapper input {
+  padding-right: 3rem;
+}
+
+.pw-toggle-btn {
+  position: absolute;
+  right: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.95rem;
+  color: var(--muted);
+  transition: color var(--trans);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.pw-toggle-btn:hover {
+  color: var(--text);
+}
+
+/* Quantity +/- control */
+.qty {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.6rem;
+}
+
+.qty button {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--gold);
+  background: none;
+  border: none;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.qty span {
+  font-size: 0.9rem;
+  font-weight: 600;
+  min-width: 18px;
+  text-align: center;
+}
+
+/* Password strength meter */
+.strength-bar-wrap {
+  height: 4px;
+  background: var(--border);
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+
+.strength-bar {
+  height: 100%;
+  width: 0;
+  border-radius: 4px;
+  transition: width 0.4s ease, background 0.4s ease;
+}
+
+.strength-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: var(--muted);
+  margin-top: 0.3rem;
+}
+
+/* Form message (error / success banner) */
+.form-msg {
+  padding: 0.7rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.83rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: none;
+}
+
+.form-msg.error {
+  background: rgba(255, 77, 109, 0.12);
+  border: 1px solid rgba(255, 77, 109, 0.3);
+  color: var(--danger);
+  display: block;
+}
+
+.form-msg.success {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: var(--success);
+  display: block;
+}
+
+/* OTP 6-digit inputs */
+.otp-digits-container {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.otp-digit {
+  width: 48px !important;
+  height: 54px;
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  border-radius: 10px;
+  padding: 0 !important;
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  transition: border-color var(--trans);
+}
+
+.otp-digit:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(212, 168, 83, 0.12);
+}
+
+/* Resend OTP row */
+.auth-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  font-size: 0.82rem;
+}
+
+.font-xs        { font-size: 0.78rem; }
+.resend-countdown { color: var(--muted); }
+
+.resend-btn {
+  color: var(--gold);
+  font-weight: 600;
+  font-size: 0.82rem;
+  opacity: 0.4;
+  transition: opacity var(--trans);
+  background: none;
+  border: none;
+  cursor: not-allowed;
+}
+
+.resend-btn:not(:disabled) {
+  opacity: 1;
+  cursor: pointer;
+}
+
+
+/* ══════════════════════════════════════════════
+   3. CARDS
+══════════════════════════════════════════════ */
+
+/* ── Restaurant Cards ─────────────────────────── */
+.rcards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.rcard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform var(--trans), box-shadow var(--trans);
+}
+
+.rcard:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow);
+}
+
+.rcard-img {
+  position: relative;
+  overflow: hidden;
+}
+
+.rcard-img img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.rcard:hover .rcard-img img {
+  transform: scale(1.07);
+}
+
+.rcard-badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  background: rgba(10, 15, 30, 0.85);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.3rem 0.7rem;
+  color: var(--text);
+  backdrop-filter: blur(8px);
+}
+
+.rcard-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 15, 30, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--trans);
+}
+
+.rcard:hover .rcard-overlay {
+  opacity: 1;
+}
+
+.rcard-overlay button {
+  padding: 0.6rem 1.4rem;
+  background: var(--gold);
+  color: #0a0f1e;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border: none;
+  cursor: pointer;
+}
+
+.rcard-body {
+  padding: 1.2rem;
+}
+
+.rcard-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.rcard-top h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.rrating {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.rcard-body p {
+  font-size: 0.87rem;
+  color: var(--muted);
+  margin-bottom: 0.8rem;
+}
+
+.rmeta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* ── Food Menu Cards ──────────────────────────── */
+.filter-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.ftab {
+  padding: 0.5rem 1.3rem;
+  border: 1.5px solid var(--border);
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+  transition: all var(--trans);
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.ftab:hover,
+.ftab.active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #0a0f1e;
+}
+
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.fcard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform var(--trans), box-shadow var(--trans);
+}
+
+.fcard:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow);
+}
+
+.fcard.hidden {
+  display: none;
+}
+
+.fcard-img {
+  position: relative;
+  overflow: hidden;
+}
+
+.fcard-img img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.fcard:hover .fcard-img img {
+  transform: scale(1.06);
+}
+
+.ftag {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  background: rgba(10, 15, 30, 0.88);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.28rem 0.65rem;
+  color: var(--gold);
+  backdrop-filter: blur(8px);
+}
+
+.flike {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 30px;
+  height: 30px;
+  background: rgba(10, 15, 30, 0.7);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all var(--trans);
+}
+
+.flike:hover,
+.flike.liked {
+  color: var(--danger);
+  transform: scale(1.2);
+}
+
+.fcard-body {
+  padding: 1.2rem;
+}
+
+.fcard-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.fcard-top h3 {
+  font-size: 0.98rem;
+  font-weight: 700;
+}
+
+.fprice {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--gold);
+}
+
+.fcard-body p {
+  font-size: 0.84rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.factions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* ── Testimonial Cards ────────────────────────── */
+.tgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.tcard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  transition: transform var(--trans), box-shadow var(--trans);
+}
+
+.tcard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.tcard.hl {
+  border-color: rgba(212, 168, 83, 0.4);
+  background: var(--surface2);
+}
+
+.tstars {
+  color: var(--gold);
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.tcard p {
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-style: italic;
+  margin-bottom: 1.4rem;
+}
+
+.tauthor {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.tauthor img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.tauthor strong {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.tauthor small {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+
+/* ══════════════════════════════════════════════
+   4. CHIPS
+══════════════════════════════════════════════ */
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+}
+
+.chip {
+  padding: 0.4rem 1rem;
+  background: rgba(212, 168, 83, 0.1);
+  border: 1px solid rgba(212, 168, 83, 0.25);
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--gold);
+}
+
+
+/* ══════════════════════════════════════════════
+   5. MODAL
+══════════════════════════════════════════════ */
+
+.modal-bg {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--trans);
+}
+
+.modal-bg.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-box {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+  animation: modalIn 0.35s ease both;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.93) translateY(12px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.mclose {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.1rem;
+  color: var(--muted);
+  transition: color var(--trans);
+  background: none;
+  border: none;
+  cursor: pointer;
+  line-height: 1;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.mclose:hover {
+  color: var(--text);
+  background: var(--border);
+}
+
+
+/* ══════════════════════════════════════════════
+   6. CART DRAWER
+══════════════════════════════════════════════ */
+
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--trans);
+}
+
+.cart-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.cart-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 360px;
+  height: 100%;
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform var(--trans);
+}
+
+.cart-drawer.open {
+  transform: translateX(0);
+}
+
+.cart-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.cart-head h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.ccls {
+  color: var(--muted);
+  font-size: 1.2rem;
+  transition: color var(--trans);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.ccls:hover {
+  color: var(--text);
+}
+
+.cart-items {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.empty-cart {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--muted);
+}
+
+.empty-cart span {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.cart-foot {
+  padding: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.ctotal {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.ci-name  { flex: 1; font-size: 0.88rem; font-weight: 600; }
+.ci-qty   { font-size: 0.8rem; color: var(--muted); }
+.ci-price { font-size: 0.9rem; font-weight: 700; color: var(--gold); }
+
+.ci-rm {
+  color: var(--muted);
+  font-size: 1.1rem;
+  transition: color var(--trans);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.ci-rm:hover {
+  color: var(--danger);
+}
+
+
+/* ══════════════════════════════════════════════
+   7. KEYFRAMES & ANIMATIONS
+══════════════════════════════════════════════ */
+
+@keyframes pulse {
+  0%,  100% { box-shadow: 0 0 0 0   rgba(212, 168, 83, 0.5); }
+  50%        { box-shadow: 0 0 0 6px rgba(212, 168, 83, 0); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  0%   { transform: scale(0); }
+  60%  { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}

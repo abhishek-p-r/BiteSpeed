@@ -1,0 +1,241 @@
+@import url("style.css");
+
+/* ORDERS & SUCCESS PAGE STYLES */
+.orders-main,
+.order-success-main {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    animation: fadeUp 0.6s var(--ease) both;
+}
+
+.orders-main h1 {
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    color: var(--gold);
+    text-shadow: 0 0 15px rgba(212, 168, 83, 0.25);
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 15px;
+}
+
+/* Orders Table */
+.orders-table-wrapper {
+    background: rgba(25, 35, 55, 0.35);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    overflow-x: auto;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.orders-table th {
+    color: var(--gold);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    padding: 16px 20px;
+    border-bottom: 2px solid var(--border);
+    text-align: left;
+}
+
+.orders-table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+    color: var(--text);
+}
+
+.orders-table tr:hover td {
+    background: rgba(212, 168, 83, 0.02);
+    color: #fff;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    display: inline-block;
+    border: 1px solid transparent;
+}
+
+.status-badge.placed,
+.status-badge.completed,
+.status-badge.delivered {
+    background: rgba(46, 204, 113, 0.1);
+    color: #2ecc71;
+    border-color: rgba(46, 204, 113, 0.2);
+}
+
+.status-badge.pending,
+.status-badge.processing {
+    background: rgba(255, 107, 53, 0.1);
+    color: #ff9f43;
+    border-color: rgba(255, 107, 53, 0.2);
+}
+
+.status-badge.cancelled {
+    background: rgba(230, 57, 70, 0.1);
+    color: #ff6b6b;
+    border-color: rgba(230, 57, 70, 0.2);
+}
+
+/* Actions */
+.btn-inspect {
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: color 0.3s;
+}
+
+.btn-inspect:hover {
+    color: var(--gold2);
+    text-decoration: underline;
+}
+
+/* Empty Views */
+.empty-orders-view {
+    text-align: center;
+    padding: 60px 20px;
+    background: rgba(25, 35, 55, 0.25);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+}
+
+.empty-orders-view span {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.empty-orders-view p {
+    color: var(--muted);
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+}
+
+/* Success Card */
+.success-card {
+    max-width: 550px;
+    margin: 60px auto;
+    background: rgba(25, 35, 55, 0.45);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 240, 255, 0.25);
+    border-radius: 24px;
+    padding: 50px 40px;
+    text-align: center;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+    position: relative;
+    overflow: hidden;
+}
+
+.success-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #00f0ff, #00d2ff);
+}
+
+.success-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    animation: bounce 2s infinite;
+}
+
+.success-card h1 {
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+    color: #fff;
+    margin-top: 0;
+    margin-bottom: 8px;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.success-sub {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+}
+
+.order-details-box {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.order-details-box p {
+    margin: 8px 0;
+    font-size: 0.95rem;
+    color: var(--muted);
+}
+
+.order-details-box strong {
+    color: #fff;
+}
+
+.order-details-box .highlight {
+    font-family: monospace;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.delivery-eta {
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin-bottom: 35px;
+}
+
+.delivery-eta strong {
+    color: var(--gold);
+}
+
+.success-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+@media (max-width: 500px) {
+    .success-actions {
+        flex-direction: column;
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}

@@ -1,0 +1,253 @@
+@import url("style.css");
+
+/* CHECKOUT & PAYMENT PAGE STYLES */
+.checkout-main,
+.payment-main {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    animation: fadeUp 0.6s var(--ease) both;
+}
+
+.checkout-main h1,
+.payment-main h1 {
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    color: var(--gold);
+    text-shadow: 0 0 15px rgba(212, 168, 83, 0.25);
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 15px;
+}
+
+/* Grid Layout */
+.checkout-container,
+.payment-container {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .checkout-container,
+    .payment-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Form Panel Card */
+.checkout-card,
+.payment-card {
+    background: rgba(25, 35, 55, 0.45);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(212, 168, 83, 0.15);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.checkout-card h2,
+.payment-card h2 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.checkout-sub,
+.payment-sub {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-bottom: 30px;
+    font-weight: 300;
+}
+
+/* Forms */
+.checkout-form,
+.payment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.checkout-form .form-group,
+.payment-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.checkout-form label,
+.payment-form label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+}
+
+.checkout-form input[type="text"],
+.checkout-form input[type="tel"],
+.checkout-form textarea,
+.payment-form input[type="text"],
+.payment-form input[type="tel"],
+.payment-form input[type="password"] {
+    width: 100% !important;
+    background: rgba(15, 23, 42, 0.8) !important;
+    border: 1.5px solid rgba(212, 168, 83, 0.35) !important;
+    border-radius: 10px !important;
+    padding: 14px 16px !important;
+    color: #ffffff !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 0.95rem !important;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4) !important;
+}
+
+.checkout-form input:focus,
+.checkout-form textarea:focus,
+.payment-form input:focus {
+    border-color: var(--gold) !important;
+    box-shadow: 0 0 16px rgba(212, 168, 83, 0.35) !important;
+}
+
+/* Payment Mode Selectors */
+.payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.pay-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.3s var(--ease);
+}
+
+.pay-option:hover {
+    background: rgba(212, 168, 83, 0.03);
+    border-color: rgba(212, 168, 83, 0.3);
+}
+
+.pay-option input[type="radio"] {
+    margin-top: 4px;
+    accent-color: var(--gold);
+    width: 18px;
+    height: 18px;
+}
+
+.option-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.option-title {
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.option-desc {
+    color: var(--muted);
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+
+/* Submit Buttons */
+.btn-checkout-submit,
+.btn-pay-submit {
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: var(--black);
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s var(--ease);
+    letter-spacing: 0.05em;
+    margin-top: 10px;
+}
+
+.btn-checkout-submit:hover,
+.btn-pay-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(212, 168, 83, 0.25);
+}
+
+/* Bill Summary Card */
+.bill-summary-card {
+    background: rgba(25, 35, 55, 0.35);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.bill-summary-card h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    color: #fff;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.detail-row .label {
+    min-width: 100px;
+}
+
+.detail-row .value {
+    color: #fff;
+    font-weight: 500;
+    text-align: right;
+    word-break: break-all;
+}
+
+.bill-summary-card hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 20px 0;
+}
+
+.total-row {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.total-row .label {
+    color: #fff;
+}
+
+.total-row .value {
+    color: var(--gold) !important;
+    text-shadow: 0 0 10px rgba(212, 168, 83, 0.2);
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

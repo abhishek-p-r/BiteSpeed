@@ -1,0 +1,191 @@
+@import url("style.css");
+
+/* MENU DISPLAY STYLES */
+.menu-main {
+    max-width: 1200px;
+    margin: 120px auto 40px auto;
+    padding: 0 20px;
+    animation: fadeUp 0.6s var(--ease) both;
+}
+
+.menu-header {
+    margin-bottom: 45px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 30px;
+}
+
+.back-link {
+    color: var(--muted);
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: color 0.3s;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.back-link:hover {
+    color: var(--gold);
+}
+
+.menu-header-content h1 {
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    color: var(--gold);
+    text-shadow: 0 0 15px rgba(212, 168, 83, 0.25);
+    margin: 0 0 8px 0;
+}
+
+.cuisine-type {
+    color: var(--muted);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 10px 0;
+}
+
+.menu-header-content .meta {
+    color: var(--text);
+    font-size: 0.9rem;
+    margin: 0;
+    opacity: 0.8;
+}
+
+/* Menu Grid */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 30px;
+}
+
+.menu-card {
+    background: rgba(25, 35, 55, 0.35);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.4s var(--ease);
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-card:hover {
+    border-color: rgba(212, 168, 83, 0.3);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.menu-img-wrap {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+}
+
+.menu-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s var(--ease);
+}
+
+.menu-card:hover .menu-img-wrap img {
+    transform: scale(1.06);
+}
+
+.menu-info {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.menu-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 12px;
+}
+
+.menu-title-row h3 {
+    margin: 0;
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.menu-title-row .price {
+    color: var(--gold);
+    font-size: 1.25rem;
+    font-weight: 700;
+    font-family: var(--font-sans);
+    text-shadow: 0 0 10px rgba(212, 168, 83, 0.15);
+}
+
+.description {
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin: 0 0 20px 0;
+    flex: 1;
+    font-weight: 300;
+}
+
+.menu-action-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    padding-top: 15px;
+}
+
+.menu-action-row .rating {
+    color: var(--gold2);
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.add-to-cart-btn {
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: var(--black);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s var(--ease);
+    letter-spacing: 0.03em;
+}
+
+.add-to-cart-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(212, 168, 83, 0.25);
+}
+
+.empty-menu {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 50px 20px;
+    background: rgba(25, 35, 55, 0.2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    color: var(--muted);
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

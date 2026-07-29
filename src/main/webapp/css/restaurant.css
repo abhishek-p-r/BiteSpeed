@@ -1,0 +1,177 @@
+@import url("style.css");
+
+/* RESTAURANT BROWSER STYLES */
+.resto-main {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    animation: fadeUp 0.6s var(--ease) both;
+}
+
+.resto-hero {
+    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 25px;
+}
+
+.resto-hero h1 {
+    font-family: var(--font-serif);
+    font-size: 2.8rem;
+    color: var(--gold);
+    text-shadow: 0 0 15px rgba(212, 168, 83, 0.25);
+    margin: 0 0 10px 0;
+}
+
+.resto-hero p {
+    color: var(--muted);
+    font-size: 1rem;
+    margin: 0;
+    font-weight: 300;
+}
+
+/* Grid */
+.resto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 30px;
+}
+
+.resto-card {
+    background: rgba(25, 35, 55, 0.35);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s var(--ease);
+    display: flex;
+    flex-direction: column;
+}
+
+.resto-card:hover {
+    border-color: rgba(212, 168, 83, 0.3);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.resto-img-wrap {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+}
+
+.resto-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s var(--ease);
+}
+
+.resto-card:hover .resto-img-wrap img {
+    transform: scale(1.06);
+}
+
+.delivery-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--orange);
+    color: var(--orange);
+    padding: 6px 12px;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    box-shadow: 0 0 10px rgba(255, 107, 53, 0.2);
+}
+
+.resto-info {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.resto-info h3 {
+    margin: 0 0 8px 0;
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.resto-card:hover .resto-info h3 {
+    color: var(--gold);
+}
+
+.cuisine {
+    color: var(--gold);
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.address {
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin: 0 0 20px 0;
+    flex: 1;
+}
+
+.resto-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    padding-top: 15px;
+}
+
+.rating {
+    color: var(--gold2);
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.inspect-btn {
+    color: var(--gold);
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: transform 0.3s var(--ease);
+}
+
+.resto-card:hover .inspect-btn {
+    transform: translateX(5px);
+    color: var(--gold2);
+}
+
+.empty-resto {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 50px 20px;
+    background: rgba(25, 35, 55, 0.2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    color: var(--muted);
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
